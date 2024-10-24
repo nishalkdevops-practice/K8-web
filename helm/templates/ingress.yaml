@@ -1,23 +1,23 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-    name: roboshop
-    namespace: roboshop 
-    annotations:
-        alb.ingress.kubernetes.io/scheme: internet-facing
-        alb.ingress.kubernetes.io/target-type: ip
-        alb.ingress.kubernetes.io/tags: Environment=dev,Project=roboshop
-        alb.ingress.kubernetes.io/group.name: nishaldevops
-spec:
-  ingressClassName: alb
-  rules:
-  - host: "roboshop.nishaldevops.online"
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: web
-            port:
-              number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#     name: roboshop
+#     namespace: roboshop 
+#     annotations:
+#         alb.ingress.kubernetes.io/scheme: internet-facing
+#         alb.ingress.kubernetes.io/target-type: ip
+#         alb.ingress.kubernetes.io/tags: Environment=dev,Project=roboshop
+#         alb.ingress.kubernetes.io/group.name: nishaldevops
+# spec:
+#   ingressClassName: alb
+#   rules:
+#   - host: "roboshop.nishaldevops.online"
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: web
+#             port:
+#               number: 80

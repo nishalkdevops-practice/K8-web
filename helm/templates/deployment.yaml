@@ -3,21 +3,20 @@ kind: Deployment
 metadata:
   name: web
   namespace: roboshop
-  labels:  #these are deployment labels
+  labels: # these labels belong to deployment
     app: web
     tier: web
     project: roboshop
-
 spec:
   replicas: 1
   selector:
-    matchLabels:
+    matchLabels: # these labels should match with pod
       app: web
       tier: web
       project: roboshop
-  template:
+  template: # this is the pod definition
     metadata:
-      labels: 
+      labels:
         app: web
         tier: web
         project: roboshop
@@ -30,8 +29,15 @@ spec:
           - key: nginx.conf
             path: nginx.conf
       containers:
-      - name: web
+      - name: catalogue
         image: "nishaldevops/web:{{ .Values.deployment.imageVersion }}"
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "68Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
         volumeMounts:
         - name: nginx-conf # name of the volume you created above
           mountPath: /etc/nginx/nginx.conf

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: roboshop
+  labels:  #these are deployment labels
+    app: web
+    tier: web
+    project: roboshop
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+      tier: web
+      project: roboshop
+  template:
+    metadata:
+      labels: 
+        app: web
+        tier: web
+        project: roboshop
+    spec:
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+      containers:
+      - name: web
+        image: "nishaldevops/web:{{ .Values.deployment.imageVersion }}"
+        volumeMounts:
+        - name: nginx-conf # name of the volume you created above
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          readOnly: true
